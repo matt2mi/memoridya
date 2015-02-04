@@ -50,11 +50,6 @@ body {
 .jumbotron {
   text-align: center;
   border-bottom: 1px solid #e5e5e5;
-
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
 }
 
 /* Supporting marketing content */
@@ -87,4 +82,17 @@ body {
   .jumbotron {
     border-bottom: 0;
   }
+}
+
+.memory-style {
+  float: left;
+  width: 180px;
+  height: 180px;
+
+  margin: 5px;
+
+  background-color: white;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  cursor: pointer;
 }

@@ -2,20 +2,20 @@
     <div class="row">
         <div class="col-sm-8">
             <div class="row">
-                <input type="text" ng-model="newMemoryTitle" placeholder="Titre">
+                <input type="text" class="form-control" ng-model="newMemoryTitle" placeholder="Titre">
             </div>
             <div class="row">
-                <textarea ng-model="newMemoryContent" placeholder="Contenu"></textarea>
+                <textarea class="form-control" rows="5" ng-model="newMemoryContent" placeholder="Contenu"></textarea>
             </div>
         </div>
         <div class="col-sm-4">
-            <input type="button" class="btn btn-xs btn-success" value="Ajouter" ng-click="addMemory()">
+            <button type="button" class="btn btn-success btn-lg" ng-click="addMemory()">Ajouter</button>
         </div>
     </div>
 </div>
 
 <div class="jumbotron">
-    <div class="row marketing" style="float: left; width: 180px; height: 180px; border: solid 1px grey; margin: 5px;" ng-repeat="memory in memories">
+    <div class="row marketing memory-style" ng-repeat="memory in memories" ng-click="openMemory($index)">
         <h2>{{memory.title}}</h2>
         <p>{{memory.content}}</p>
     </div>
