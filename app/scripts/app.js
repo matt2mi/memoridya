@@ -28,6 +28,14 @@ angular
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
       })
+      .when('/contact', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl'
+      })
+      .when('/memoryDetails/:id', {
+        templateUrl: 'views/memorydetails.html',
+        controller: 'MemorydetailsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

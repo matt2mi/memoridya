@@ -17,7 +17,7 @@
 </div>
 
 <div class="jumbotron">
-    <div class="row marketing memory-style" ng-repeat="memory in memories" ng-click="openMemory($index)">
+    <div class="row marketing memory-style" ng-repeat="memory in memoriesList" ng-click="openMemory($index)">
         <h2>{{memory.title}}</h2>
         <p>{{memory.content}}</p>
     </div>

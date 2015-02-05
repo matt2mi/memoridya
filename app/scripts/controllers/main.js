@@ -8,21 +8,17 @@
  * Controller of the memorydiaApp
  */
 angular.module('memorydiaApp')
-    .controller('MainCtrl', function ($scope) {
+    .controller('MainCtrl', function ($scope, $location, memories) {
         $scope.showFormNewMemory = false;
         $scope.newMemoryTitle = '';
         $scope.newMemoryContent = '';
-        $scope.memories = [
-            {title: 'memory1', content: 'content of memory1'},
-            {title: 'memory2', content: 'content of memory2'},
-            {title: 'memory3', content: 'content of memory3'},
-            {title: 'memory4', content: 'content of memory4'},
-            {title: 'memory5', content: 'content of memory5'}
-        ];
+        $scope.memoriesList = memories.getMemories();
 
         $scope.addMemory = function () {
             if($scope.newMemoryTitle !== '' || $scope.newMemoryContent !== '') {
-                $scope.memories.push({title: $scope.newMemoryTitle, content: $scope.newMemoryContent});
+                memories.addMemory({title: $scope.newMemoryTitle, content: $scope.newMemoryContent});
+                $scope.memoriesList = memories.getMemories();
+
                 $scope.showFormNewMemory = false;
                 $scope.newMemoryTitle = '';
                 $scope.newMemoryContent = '';
@@ -37,7 +33,7 @@ angular.module('memorydiaApp')
         };
 
         $scope.openMemory = function(memoryIndex) {
-            console.log($scope.memories[memoryIndex]);
+            $location.path('/memoryDetails/' + memoryIndex);
         };
 
         $scope.showAddMemory = function() {
