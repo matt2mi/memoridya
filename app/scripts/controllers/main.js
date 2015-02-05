@@ -9,6 +9,7 @@
  */
 angular.module('memorydiaApp')
     .controller('MainCtrl', function ($scope) {
+        $scope.showFormNewMemory = false;
         $scope.newMemoryTitle = '';
         $scope.newMemoryContent = '';
         $scope.memories = [
@@ -20,10 +21,26 @@ angular.module('memorydiaApp')
         ];
 
         $scope.addMemory = function () {
-            $scope.memories.push({title: $scope.newMemoryTitle, content: $scope.newMemoryContent});
+            if($scope.newMemoryTitle !== '' || $scope.newMemoryContent !== '') {
+                $scope.memories.push({title: $scope.newMemoryTitle, content: $scope.newMemoryContent});
+                $scope.showFormNewMemory = false;
+                $scope.newMemoryTitle = '';
+                $scope.newMemoryContent = '';
+            } else {
+                if($scope.newMemoryTitle === '') {
+                    $scope.newMemoryTitleError = true;
+                }
+                if($scope.newMemoryContent === '') {
+                    $scope.newMemoryContentError = true;
+                }
+            }
         };
 
         $scope.openMemory = function(memoryIndex) {
             console.log($scope.memories[memoryIndex]);
+        };
+
+        $scope.showAddMemory = function() {
+            $scope.showFormNewMemory = true;
         };
     });
