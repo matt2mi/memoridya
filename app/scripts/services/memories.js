@@ -17,6 +17,9 @@ angular.module('memorydiaApp')
         this.addMemory = function(memory) {
             this.memories.push(memory);
         };
+        this.deleteMemory = function(memoryId) {
+            this.memories.splice(memoryId, 1);
+        };
         this.getMemories = function() {
             return this.memories;
         };

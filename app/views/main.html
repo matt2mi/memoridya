@@ -17,11 +17,13 @@
 </div>
 
 <div class="jumbotron">
-    <div class="row marketing memory-style" ng-repeat="memory in memoriesList" ng-click="openMemory($index)">
-        <h2>{{memory.title}}</h2>
+    <div class="row marketing memory-content" ng-repeat="memory in memoriesList" ng-click="openMemory($index)"
+         ng-mouseover="hoverMemory = true;" ng-mouseleave="hoverMemory = false;">
+        <img class="memory-delete" ng-show="hoverMemory" ng-click="deleteMemory($index)" src="http://www.ohmydollz.com/design2012/mailbox/icone_poubelle.png"/>
+        <h2 class="memory-title">{{memory.title}}</h2>
         <p>{{memory.content}}</p>
     </div>
-    <div class="row marketing memory-style" ng-click="showAddMemory()">
+    <div class="row marketing memory-content" ng-click="showAddMemory()">
         <p style="font-size: 120px;">+</p>
     </div>
     <div style="clear: both;"></div>

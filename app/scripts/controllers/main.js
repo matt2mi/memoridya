@@ -10,6 +10,7 @@
 angular.module('memorydiaApp')
     .controller('MainCtrl', function ($scope, $location, memories) {
         $scope.showFormNewMemory = false;
+        $scope.hoverMemory = false;
         $scope.newMemoryTitle = '';
         $scope.newMemoryContent = '';
         $scope.memoriesList = memories.getMemories();
@@ -34,6 +35,10 @@ angular.module('memorydiaApp')
 
         $scope.openMemory = function(memoryIndex) {
             $location.path('/memoryDetails/' + memoryIndex);
+        };
+
+        $scope.deleteMemory = function(memoryIndex) {
+            memories.deleteMemory(memoryIndex);
         };
 
         $scope.showAddMemory = function() {

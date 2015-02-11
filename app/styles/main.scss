@@ -87,7 +87,8 @@ body {
   }
 }
 
-.memory-style {
+.memory-content {
+  position: relative;
   float: left;
   width: 180px;
   height: 180px;
@@ -99,7 +100,15 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
-.memory-style:hover {
+.memory-content:hover {
   box-shadow: 2px 2px 5px $gris;
   margin: 3px 7px 7px 3px;
+}
+.memory-title {
+  margin-top: 40px;
+}
+.memory-delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
