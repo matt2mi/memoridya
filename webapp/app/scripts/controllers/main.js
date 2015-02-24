@@ -33,6 +33,10 @@ angular.module('memorydiaApp')
             }
         };
 
+        $scope.cancelAddMemory = function() {
+            $scope.showFormNewMemory = false;
+        };
+
         $scope.openMemory = function(memoryIndex) {
             $location.path('/memoryDetails/' + memoryIndex);
         };
