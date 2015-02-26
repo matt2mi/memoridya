@@ -4,4 +4,6 @@ webapp/.tmp
 webapp/bower_components
 webapp/node_modules
 
+server/node_modules
+
 .idea
