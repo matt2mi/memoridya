@@ -10,7 +10,7 @@ var assert = require('assert')
         "url":   "http://www.google.com",
         "tags":  [ "google", "search" ]
     }
-    , expected_id = 1
+    , expected_id = 1;
 
 // Configure REST API host & URL
 require('api-easy')
