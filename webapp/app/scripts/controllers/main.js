@@ -13,7 +13,16 @@ angular.module('memorydiaApp')
         $scope.hoverMemory = false;
         $scope.newMemoryTitle = '';
         $scope.newMemoryContent = '';
-        $scope.memoriesList = memories.getMemories();
+
+        $scope.init = function() {
+            var returnStatus = memories.loadMemoriesFromServer();
+            if(returnStatus.success) {
+                $scope.memoriesList = memories.getMemories();
+            }
+            else {
+                console.log('Erreur : ' + returnStatus);
+            }
+        };
 
         $scope.addMemory = function () {
             if($scope.newMemoryTitle !== '' || $scope.newMemoryContent !== '') {
@@ -46,6 +55,7 @@ angular.module('memorydiaApp')
         };
 
         $scope.showAddMemory = function() {
+            $scope.init();
             $scope.showFormNewMemory = true;
         };
     });

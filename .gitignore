@@ -6,4 +6,6 @@ webapp/node_modules
 
 server/node_modules
 
+data
+
 .idea
