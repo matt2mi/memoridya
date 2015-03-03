@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
  
 //var auth = require('../auth/auth');
-var beer = require('../dao/beers');
+var memory = require('../dao/memories');
 //var user = require('../dao/users');
  
  
@@ -12,13 +12,13 @@ var beer = require('../dao/beers');
 //router.post('/login', auth.login);
  
 /*
- * Routes for beers
+ * Routes for memories
  */
-router.get('/beers', beer.getAll);
-router.get('/beer/:id', beer.getOne);
-router.post('/beer/', beer.create);
-router.put('/beer/:id', beer.update);
-router.delete('/beer/:id', beer.delete);
+router.get('/memories', memory.getAll);
+router.get('/memory/:id', memory.getOne);
+router.post('/memory/', memory.create);
+router.put('/memory/:id', memory.update);
+router.delete('/memory/:id', memory.delete);
  
 /*
  * Routes for users

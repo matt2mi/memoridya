@@ -19,24 +19,21 @@ angular.module('memorydiaApp')
                 'success': true,
                 'msg': ''
             };
-            $http.post('localhost:3000/beer', {
-                beerid: 'beerid',
-                beer: 'beer',
-                brewery: 'brewery',
-                abv: 'abv',
-                year: 'year',
-                cellardate: 'cellardate',
-                style: 'style',
-                description: 'description',
-                notes: 'notes',
-                total: 'total'
-            }).
-            //$http.get('localhost:3000/memories').
+            var memories = [];
+            var req = {
+                method: 'GET',
+                url: 'localhost:3000/memories',
+                headers: {
+                    'Content-Type': undefined
+                }
+            };
+            $http(req).
                 success(function(data, status, headers, config) {
                     // this callback will be called asynchronously
                     // when the response is available
                     reutrnStatus.success = true;
                     reutrnStatus.msg = status;
+                    memories = data;
                 }).
                 error(function(data, status, headers, config) {
                     // called asynchronously if an error occurs
@@ -44,6 +41,7 @@ angular.module('memorydiaApp')
                     reutrnStatus.success = false;
                     reutrnStatus.msg = status;
                 });
+            this.setMemories(memories);
             return reutrnStatus;
         };
         this.addMemory = function(memory) {
@@ -57,5 +55,8 @@ angular.module('memorydiaApp')
         };
         this.getMemoryById = function(id) {
             return this.memories[id];
+        };
+        this.setMemories = function(memories) {
+            this.memories = memories;
         };
   });

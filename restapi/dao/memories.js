@@ -1,24 +1,24 @@
-var Beer = require('../models/beer');
-var beers = {
+var Memory = require('../models/memory');
+var memories = {
   
   getAll: function(req, res) {
-    Beer.find(function (err,beers) {
+    Memory.find(function (err,memories) {
       if (err) {
         console.log(err);
       } else {
-        res.send(beers);
+        res.send(memories);
       }
     });
   },
  
   getOne: function(req, res) {
     var id = req.params.id;
-    Beer.findOne({ beerid: id }, function (err,beer) {
+    Memory.findOne({ memoryId: id }, function (err,memory) {
       if (err) {
         console.log(err);
       } else {
-        if (beer) {
-          res.send(beer);
+        if (memory) {
+          res.send(memory);
         } else {
           res.status(404);
           res.json({
@@ -32,34 +32,26 @@ var beers = {
  
   create: function(req, res) {
     var body = req.body;
-    Beer.findOne({ beerid: body.beerid }, function (err,beer) {
+    Memory.findOne({ memoryId: body.memoryId }, function (err,memory) {
       if (err) {
         console.log(err);
       } else {
-        if (beer) {
+        if (memory) {
           res.status(409);
           res.json({
             "status": 409,
-            "message": "Beer already exists."
+            "message": "Memory already exists."
           });
         } else {
-          var newBeer = new Beer({
-            beerid: body.beerid,
-            beername: body.beername,
-            brewery: body.brewery,
-            abv: body.abv,
-            year: body.year,
-            cellardate: body.cellardate,
-            style: body.style,
-            description: body.description,
-            notes: body.notes,
-            total: body.total
+          var newMemory = new Memory({
+            memoryId: body.memoryId,
+            memoryContent: body.memoryContent
           });
-          newBeer.save(function(err,newBeer) {
+          newMemory.save(function(err,newMemory) {
             if (err) {
               return console.error(err);
             } else {
-              res.json(newBeer);
+              res.json(newMemory);
             }
           });
         }
@@ -71,16 +63,16 @@ var beers = {
     var body = req.body;
     var id = req.params.id;
  
-    Beer.findOne({ beerid: id }, function (err,beer) {
+    Memory.findOne({ memoryId: id }, function (err,memory) {
       if (err) {
         console.log(err);
       } else {
-        if (beer) {
-          Beer.findOneAndUpdate({beerid:id},body, function (err,updatedbeer) {
+        if (memory) {
+          Memory.findOneAndUpdate({memoryId:id},body, function (err,updatedmemory) {
             if (err) {
               console.log(err);
             } else {
-              res.json(updatedbeer);
+              res.json(updatedmemory);
             }
           });
         } else {
@@ -97,12 +89,12 @@ var beers = {
  
   delete: function(req, res) {
     var id = req.params.id;
-    Beer.findOne({ beerid: id }, function (err,beer) {
+    Memory.findOne({ memoryId: id }, function (err,memory) {
       if (err) {
         console.log(err);
       } else {
-        if (beer) {
-          Beer.remove({beerid: id}, function (err,beer) {
+        if (memory) {
+          Memory.remove({memoryId: id}, function (err,memory) {
             if (err) {
               console.log(err);
             } else {
@@ -127,4 +119,4 @@ var beers = {
   }
 };
  
-module.exports = beers;
+module.exports = memories;
