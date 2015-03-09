@@ -22,10 +22,7 @@ angular.module('memorydiaApp')
             var memories = [];
             var req = {
                 method: 'GET',
-                url: 'localhost:3000/memories',
-                headers: {
-                    'Content-Type': undefined
-                }
+                url: 'localhost:9001/memories'
             };
             $http(req).
                 success(function(data, status, headers, config) {

@@ -4,7 +4,8 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var config = require('./config/config');
- 
+var cors = require('cors');
+
 var app = express();
  
 var mongoose = require('mongoose');
@@ -15,13 +16,17 @@ mongoose.connect(config.db);
  
 app.use(logger('dev'));
 app.use(bodyParser.json());
- 
+
+app.use(cors());
+app.options('*', cors());
+
 app.all('/*', function(req, res, next) {
   // CORS headers
   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   // Set custom headers for CORS
-  res.header('Access-Control-Allow-Headers', 'Content-type,Accept');
+  //res.header('Access-Control-Allow-Headers', 'Content-type,Accept');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
   // If someone calls with method OPTIONS, let's display the allowed methods on our API
   if (req.method == 'OPTIONS') {
     res.status(200);
