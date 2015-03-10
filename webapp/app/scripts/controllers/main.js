@@ -13,15 +13,18 @@ angular.module('memorydiaApp')
         $scope.hoverMemory = false;
         $scope.newMemoryTitle = '';
         $scope.newMemoryContent = '';
+        $scope.responseError = false;
 
         $scope.init = function() {
-            var returnStatus = memories.loadMemoriesFromServer();
-            if(returnStatus.success) {
-                $scope.memoriesList = memories.getMemories();
-            }
-            else {
-                console.log('Erreur : ' + returnStatus);
-            }
+            memories.loadMemoriesFromServer().then(function(data) {
+                    $scope.memoriesList = data.data;
+                    $scope.responseError = false;
+                },
+                function(error) {
+                    console.log('Erreur : ' + error);
+                    $scope.responseError = true;
+                }
+            );
         };
 
         $scope.addMemory = function () {

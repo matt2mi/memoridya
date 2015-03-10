@@ -9,4 +9,5 @@
  */
 angular.module('memorydiaApp')
   .controller('ContactCtrl', function ($scope) {
+        $scope.mail = 'contact@memorydia.fr';
   });

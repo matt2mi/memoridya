@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-show="showFormNewMemory">
+<div class="jumbotron" ng-show="showFormNewMemory" ng-init="init()">
     <div class="row">
         <div class="col-sm-8">
             <div class="row">
@@ -22,15 +22,19 @@
     </div>
 </div>
 
-<div class="jumbotron">
+<div class="jumbotron" ng-hide="responseError">
     <div class="row marketing memory-content" ng-repeat="memory in memoriesList" ng-click="openMemory($index)"
          ng-mouseover="hoverMemory = true;" ng-mouseleave="hoverMemory = false;">
         <img class="memory-delete" ng-show="hoverMemory" ng-click="deleteMemory($index)" src="http://www.ohmydollz.com/design2012/mailbox/icone_poubelle.png"/>
-        <h2 class="memory-title">{{memory.title}}</h2>
-        <p>{{memory.content}}</p>
+        <h2 class="memory-title">{{memory.memoryId}}</h2>
+        <p>{{memory.memoryContent}}</p>
     </div>
     <div class="row marketing memory-content" ng-click="showAddMemory()">
         <p style="font-size: 120px;">+</p>
     </div>
     <div style="clear: both;"></div>
+</div>
+<div class="jumbotron" ng-show="responseError">
+    <div class="error-msg">Le serveur est en erreur</div>
+    <button type="button" class="btn btn-danger btn-lg" ng-click="init()">Recharger</button>
 </div>

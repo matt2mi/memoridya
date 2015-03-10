@@ -9,51 +9,43 @@
  */
 angular.module('memorydiaApp')
   .service('memories', function ($http) {
-        this.memories = [
-            {title: 'memory1', content: 'content of memory1'},
-            {title: 'memory2', content: 'content of memory2'}
-        ];
+        var memoriesSrv = this;
+        memoriesSrv.memories = [];
 
-        this.loadMemoriesFromServer = function() {
-            var reutrnStatus = {
-                'success': true,
-                'msg': ''
-            };
-            var memories = [];
-            var req = {
-                method: 'GET',
-                url: 'localhost:9001/memories'
-            };
-            $http(req).
-                success(function(data, status, headers, config) {
-                    // this callback will be called asynchronously
-                    // when the response is available
-                    reutrnStatus.success = true;
-                    reutrnStatus.msg = status;
-                    memories = data;
+        memoriesSrv.loadMemoriesFromServer = function() {
+            var promise = $http({method: 'GET', url: 'http://localhost:9001/memories'}).
+                success(function(data) {
+                    var memories = [];
+                    angular.forEach(data, function(value) {
+                        memories.push({memoryId: value.memoryId, memoryContent: value.memoryContent});
+                    });
+                    return memories;
                 }).
-                error(function(data, status, headers, config) {
-                    // called asynchronously if an error occurs
-                    // or server returns response with an error status.
-                    reutrnStatus.success = false;
-                    reutrnStatus.msg = status;
+                error(function(data) {
+                    console.log('Erreur dans memories.js : ' + data);
+                    return [];
                 });
-            this.setMemories(memories);
-            return reutrnStatus;
+            promise.then(function(memories) {
+                memoriesSrv.setMemories(memories.data);
+            });
+
+            return promise;
         };
-        this.addMemory = function(memory) {
-            this.memories.push(memory);
+        memoriesSrv.addMemory = function(memory) {
+            memoriesSrv.memories.push(memory);
         };
-        this.deleteMemory = function(memoryId) {
-            this.memories.splice(memoryId, 1);
+        memoriesSrv.deleteMemory = function(memoryId) {
+            memoriesSrv.memories.splice(memoryId, 1);
         };
-        this.getMemories = function() {
-            return this.memories;
+        memoriesSrv.getMemories = function() {
+            return memoriesSrv.memories;
         };
-        this.getMemoryById = function(id) {
-            return this.memories[id];
+        memoriesSrv.getMemoryById = function(id) {
+            return memoriesSrv.memories[id];
         };
-        this.setMemories = function(memories) {
-            this.memories = memories;
+        memoriesSrv.setMemories = function(memories) {
+            memoriesSrv.memories = memories;
         };
+
+        return memoriesSrv;
   });
