@@ -22,29 +22,49 @@ angular.module('memorydiaApp')
                     return memories;
                 }).
                 error(function(data) {
-                    console.log('Erreur dans memories.js : ' + data);
-                    return [];
+                    console.log(data.message);
                 });
             promise.then(function(memories) {
-                memoriesSrv.setMemories(memories.data);
-            });
+                    memoriesSrv.setMemories(memories.data);
+                }
+            );
 
             return promise;
         };
         memoriesSrv.addMemory = function(memory) {
-            memoriesSrv.memories.push(memory);
+            return $http.post('http://localhost:9001/memory',
+                {
+                    memoryId: memoriesSrv.getNextId(),
+                    memoryContent: memory.memoryContent
+                }).
+                success(function(data) {
+                    return data;
+                }).
+                error(function(data) {
+                    console.log(data.message);
+                });
         };
         memoriesSrv.deleteMemory = function(memoryId) {
-            memoriesSrv.memories.splice(memoryId, 1);
-        };
-        memoriesSrv.getMemories = function() {
-            return memoriesSrv.memories;
+            var idMongo = memoriesSrv.getMemoryById(memoryId).memoryId;
+            return $http.delete('http://localhost:9001/memory/' + idMongo).
+                success(function(data) {
+                    return data.message;
+                }).
+                error(function(data) {
+                    console.log(data.message);
+                });
         };
         memoriesSrv.getMemoryById = function(id) {
             return memoriesSrv.memories[id];
         };
+        memoriesSrv.getMemories = function() {
+            return memoriesSrv.memories;
+        };
         memoriesSrv.setMemories = function(memories) {
             memoriesSrv.memories = memories;
+        };
+        memoriesSrv.getNextId = function() {
+            return memoriesSrv.getMemories().length + 1;
         };
 
         return memoriesSrv;

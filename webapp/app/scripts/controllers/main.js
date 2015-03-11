@@ -11,9 +11,10 @@ angular.module('memorydiaApp')
     .controller('MainCtrl', function ($scope, $location, memories) {
         $scope.showFormNewMemory = false;
         $scope.hoverMemory = false;
-        $scope.newMemoryTitle = '';
+        $scope.newMemoryId = '';
         $scope.newMemoryContent = '';
         $scope.responseError = false;
+        $scope.memoriesList = [];
 
         $scope.init = function() {
             memories.loadMemoriesFromServer().then(function(data) {
@@ -28,16 +29,25 @@ angular.module('memorydiaApp')
         };
 
         $scope.addMemory = function () {
-            if($scope.newMemoryTitle !== '' || $scope.newMemoryContent !== '') {
-                memories.addMemory({title: $scope.newMemoryTitle, content: $scope.newMemoryContent});
-                $scope.memoriesList = memories.getMemories();
+            if($scope.newMemoryContent !== '') {
+                var promise = memories.addMemory({memoryTitle: $scope.newMemoryTitle, memoryContent: $scope.newMemoryContent});
+
+                promise.then(function(memory) { // success
+                        var promise = memories.loadMemoriesFromServer();
+                        promise.then(function() {
+                            console.log(memory);
+                            console.log('Memory ' + memory.memoryId + ' successfully created !');
+                            $scope.memoriesList = memories.getMemories();
+                        });
+                    }
+                );
 
                 $scope.showFormNewMemory = false;
                 $scope.newMemoryTitle = '';
                 $scope.newMemoryContent = '';
             } else {
-                if($scope.newMemoryTitle === '') {
-                    $scope.newMemoryTitleError = true;
+                if($scope.newMemoryId === '') {
+                    $scope.newMemoryIdError = true;
                 }
                 if($scope.newMemoryContent === '') {
                     $scope.newMemoryContentError = true;
@@ -54,7 +64,17 @@ angular.module('memorydiaApp')
         };
 
         $scope.deleteMemory = function(memoryIndex) {
-            memories.deleteMemory(memoryIndex);
+            var promise = memories.deleteMemory(memoryIndex);
+
+            promise.then(function(msg) {
+                    var promise = memories.loadMemoriesFromServer();
+                    promise.then(function() {
+                        console.log(msg.data.message);
+                        $scope.memoriesList = memories.getMemories();
+                        $location.path('/');
+                    });
+                }
+            );
         };
 
         $scope.showAddMemory = function() {

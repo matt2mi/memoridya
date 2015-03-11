@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
  
 //var auth = require('../auth/auth');
-var memory = require('../dao/memories');
+var memoriesDao = require('../dao/memoriesDao');
 //var user = require('../dao/users');
  
  
@@ -14,11 +14,11 @@ var memory = require('../dao/memories');
 /*
  * Routes for memories
  */
-router.get('/memories', memory.getAll);
-router.get('/memory/:id', memory.getOne);
-router.post('/memory/', memory.create);
-router.put('/memory/:id', memory.update);
-router.delete('/memory/:id', memory.delete);
+router.get('/memories', memoriesDao.getAll);
+router.get('/memory/:id', memoriesDao.getOne);
+router.post('/memory/', memoriesDao.createOne);
+router.put('/memory/:id', memoriesDao.update);
+router.delete('/memory/:id', memoriesDao.delete);
  
 /*
  * Routes for users
