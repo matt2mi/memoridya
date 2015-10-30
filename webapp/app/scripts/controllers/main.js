@@ -12,6 +12,7 @@ angular.module('memorydiaApp')
         $scope.showFormNewMemory = false;
         $scope.hoverMemory = false;
         $scope.newMemoryId = '';
+        $scope.newMemoryTitle = '';
         $scope.newMemoryContent = '';
         $scope.responseError = false;
         $scope.memoriesList = [];

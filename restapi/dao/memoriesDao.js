@@ -46,6 +46,7 @@ var memories = {
                 } else {
                     var newMemory = new Memory({
                         memoryId: body.memoryId,
+                        memoryTitle: body.memoryTitle,
                         memoryContent: body.memoryContent
                     });
                     newMemory.save(function(err,newMemory) {

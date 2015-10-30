@@ -17,7 +17,7 @@ angular.module('memorydiaApp')
                 success(function(data) {
                     var memories = [];
                     angular.forEach(data, function(value) {
-                        memories.push({memoryId: value.memoryId, memoryContent: value.memoryContent});
+                        memories.push({memoryId: value.memoryId, memoryTitle: value.memoryTitle, memoryContent: value.memoryContent});
                     });
                     return memories;
                 }).
@@ -35,6 +35,7 @@ angular.module('memorydiaApp')
             return $http.post('http://localhost:9001/memory',
                 {
                     memoryId: memoriesSrv.getNextId(),
+                    memoryTitle: memory.memoryTitle,
                     memoryContent: memory.memoryContent
                 }).
                 success(function(data) {
