@@ -8,7 +8,7 @@
  * Controller of the memorydiaApp
  */
 angular.module('memorydiaApp')
-    .controller('MainCtrl', function ($scope, $location, memories) {
+    .controller('MainCtrl', function ($scope, $location, $http, memories) {
         $scope.showFormNewMemory = false;
         $scope.hoverMemory = false;
         $scope.newMemoryId = '';
@@ -25,6 +25,15 @@ angular.module('memorydiaApp')
                     console.log('Erreur : ' + error);
                     $scope.responseError = true;
                 }
+            );
+        };
+
+        $scope.resultTest = false;
+
+        $scope.test = function() {
+            $http.get('/coucou').then(
+                function(data) { $scope.resultTest = data.data; },
+                function(error) { $scope.resultTest = error; }
             );
         };
 
